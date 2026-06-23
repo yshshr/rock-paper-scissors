@@ -1,6 +1,3 @@
-console.log('Hello world');
-
-
 function getComputerChoice() {
   let randomValue= Math.random();
   let computerChoice = '';
