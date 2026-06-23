@@ -1,1 +1,1 @@
-# rock-paper-scissors
+这是一个石头剪刀布小游戏。使用javascript实现。
