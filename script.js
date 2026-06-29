@@ -79,8 +79,17 @@ division.addEventListener('click', (e)=>{
     computerChoice = getComputerChoice();
     playRoundResult = playRound(humanChoice, getComputerChoice());
     const display = document.querySelector('#display');
-    display.textContent = `您当前的选择：${humanChoice},电脑的选择：${computerChoice},结果：${playRoundResult}`;
-    const score = document.querySelector('#score');
-    score.textContent = `玩家得分：${humanScore},电脑得分：${computerScore}`;
+    const para = document.createElement('p');
+    para.textContent = `您当前的选择：${humanChoice},电脑的选择：${computerChoice},结果：${playRoundResult}`;
+    display.appendChild(para);
+    const score =document.querySelector('#score');
+    if(humanScore >= 5){
+      score.textContent = `玩家得分：${humanScore},电脑得分：${computerScore}，获胜者是玩家`;  
+    } else if(computerScore >= 5){
+      score.textContent = `玩家得分：${humanScore},电脑得分：${computerScore}，获胜者是电脑`;  
+    } else {
+      score.textContent = `玩家得分：${humanScore},电脑得分：${computerScore}`;  
+    }
+    display.appendChild(score);
   }
 });
