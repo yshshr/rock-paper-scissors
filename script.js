@@ -17,59 +17,70 @@ function getHumanChoice(){
 }
 
 
-function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
-  function playRound(humanChoice, computerChoice){
-    humanChoice = humanChoice.toLowerCase();
-    computerChoice = computerChoice.toLowerCase();
-    let playRoundResult = '';
-    if(humanChoice === '石头') {
-      if(computerChoice === '剪刀') {
-        playRoundResult = '石头比剪刀，你赢了！';
-        humanScore ++;
-      }else if(computerChoice === '布'){
-        playRoundResult = '石头比布，你输了！';
-        computerScore++;
-      } else if(computerChoice === '石头'){
-        playRoundResult = '石头比石头，平局！';
-      }
-    } else if(humanChoice === '剪刀') {
-      if(computerChoice === '剪刀') {
-        playRoundResult = '剪刀比剪刀，平局！';
-      }else if(computerChoice === '布'){
-        playRoundResult = '剪刀比布，你赢了！';
-        humanScore ++;
-      } else if(computerChoice === '石头'){
-        playRoundResult = '剪刀比石头，你输了！';
-        computerScore++;
-      }
-    } else if(humanChoice === '布'){
-      if(computerChoice === '剪刀') {
-        playRoundResult = '布比剪刀，你输了！';
-        computerScore++;
-      }else if(computerChoice === '布'){
-        playRoundResult = '布比布，平局！';
-      } else if(computerChoice === '石头'){
-        playRoundResult = '布比石头，你赢了！';
-        humanScore ++;
-      }
+function playRound(humanChoice, computerChoice){
+  humanChoice = humanChoice.toLowerCase();
+  computerChoice = computerChoice.toLowerCase();
+  let playRoundResult = '';
+  if(humanChoice === '石头') {
+    if(computerChoice === '剪刀') {
+      playRoundResult = '石头比剪刀，你赢了！';
+      humanScore ++;
+    }else if(computerChoice === '布'){
+      playRoundResult = '石头比布，你输了！';
+      computerScore++;
+    } else if(computerChoice === '石头'){
+      playRoundResult = '石头比石头，平局！';
     }
-    console.log(playRoundResult);
+  } else if(humanChoice === '剪刀') {
+    if(computerChoice === '剪刀') {
+      playRoundResult = '剪刀比剪刀，平局！';
+    }else if(computerChoice === '布'){
+      playRoundResult = '剪刀比布，你赢了！';
+      humanScore ++;
+    } else if(computerChoice === '石头'){
+      playRoundResult = '剪刀比石头，你输了！';
+      computerScore++;
+    }
+  } else if(humanChoice === '布'){
+    if(computerChoice === '剪刀') {
+      playRoundResult = '布比剪刀，你输了！';
+      computerScore++;
+    }else if(computerChoice === '布'){
+      playRoundResult = '布比布，平局！';
+    } else if(computerChoice === '石头'){
+      playRoundResult = '布比石头，你赢了！';
+      humanScore ++;
+    }
   }
-  for(let i = 0; i < 5; i++) {
-    const computerChoice = getComputerChoice();
-    const humanChoice = getHumanChoice();
-
-    playRound(humanChoice, computerChoice);
-  }
-  let gameResult = '';
-  if(humanScore > computerScore){
-    gameResult = `${humanScore}:${computerScore}，获胜者是玩家!`;
-  }else if (humanScore < computerScore){
-    gameResult = `${humanScore}:${computerScore}，获胜者是电脑!`;
-  }else if(humanScore === computerScore){
-    gameResult = `${humanScore}:${computerScore}，平局!`;
-  }
-  console.log(gameResult);
+  return playRoundResult;
 }
+  
+let humanScore = 0; 
+let computerScore = 0;
+const division = document.querySelector('#btns');
+
+division.addEventListener('click', (e)=>{
+  let target = e.target;
+  let humanChoice;
+  switch(target.id){
+    case 'rock':
+      humanChoice = '石头';
+      break;
+    case 'scissors':
+      humanChoice = '剪刀';
+      break;
+    case 'paper':
+      humanChoice = '布';
+      break;
+    default:
+      humanChoice = '';
+  }
+  if(humanChoice) {
+    computerChoice = getComputerChoice();
+    playRoundResult = playRound(humanChoice, getComputerChoice());
+    const display = document.querySelector('#display');
+    display.textContent = `您当前的选择：${humanChoice},电脑的选择：${computerChoice},结果：${playRoundResult}`;
+    const score = document.querySelector('#score');
+    score.textContent = `玩家得分：${humanScore},电脑得分：${computerScore}`;
+  }
+});
